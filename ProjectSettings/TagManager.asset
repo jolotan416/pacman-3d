@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
+  - Ground
+  - DirectionChangeEntry
+  - DirectionChangeExit
   layers:
   - Default
   - TransparentFX

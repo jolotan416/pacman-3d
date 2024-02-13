@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utils;
 
@@ -10,13 +11,19 @@ namespace Pacman
     {
         private static readonly float VERTICAL_ROTATION = 180f;
         private static readonly float HORIZONTAL_ROTATION = 90f;
+        private static List<Direction> HORIZONTAL_DIRECTIONS =  new List<Direction>() { Direction.LEFT, Direction.RIGHT };
+        private static List<Direction> VERTICAL_DIRECTIONS = new List<Direction>() { Direction.FORWARD, Direction.BACKWARD };
 
         [SerializeField]
         private float movementSpeed = 5f;
 
         private Rigidbody rb;
-        private float horizontalInput = 0f;
-        private float verticalInput = 0f;
+
+        private Direction currentDirection = Direction.NONE;
+        private Direction pendingDirection = Direction.NONE;
+
+        private bool hasPassedGateEntry = false;
+        private List<Direction> directionChangeGateAllowedDirections = HORIZONTAL_DIRECTIONS;
 
         private void Start()
         {
@@ -25,20 +32,11 @@ namespace Pacman
 
         private void Update()
         {
-            float newHorizontalInput = Input.GetAxis(Constants.HORIZONTAL_AXIS);
-            float newVerticalInput = Input.GetAxis(Constants.VERTICAL_AXIS);
+            Direction directionFromInput = GetDirectionFromInputs(
+                Input.GetAxis(Constants.HORIZONTAL_AXIS),
+                Input.GetAxis(Constants.VERTICAL_AXIS));
 
-            if (newHorizontalInput != 0f)
-            {
-                horizontalInput = Mathf.Sign(newHorizontalInput);
-                verticalInput = 0f;
-            } else if (newVerticalInput != 0f)
-            {
-                horizontalInput = 0f;
-                verticalInput = Mathf.Sign(newVerticalInput);
-            }
-
-            RotateFromInput();
+            UpdateDirection(directionFromInput);
         }
 
         private void FixedUpdate()
@@ -46,38 +44,128 @@ namespace Pacman
             MovePacman();
         }
 
-        void RotateFromInput()
+        private void OnTriggerEnter(Collider other)
         {
-            if (horizontalInput != 0)
+            Debug.Log("OnTriggerExit: " + other.tag);
+            if (other.CompareTag(Constants.DIRECTION_CHANGE_ENTRY_TAG))
             {
-                transform.rotation = Quaternion.AngleAxis(
-                    (horizontalInput > 0f) ? -HORIZONTAL_ROTATION : HORIZONTAL_ROTATION,
-                    Vector3.up);
-
-                return;
-            }
-
-            if (verticalInput != 0)
-            {
-                transform.rotation = Quaternion.AngleAxis(
-                    (verticalInput > 0f) ? VERTICAL_ROTATION : 0f,
-                    Vector3.up);
+                hasPassedGateEntry = false;
+                if (HORIZONTAL_DIRECTIONS.Contains(currentDirection))
+                {
+                    directionChangeGateAllowedDirections = HORIZONTAL_DIRECTIONS;
+                } else if (VERTICAL_DIRECTIONS.Contains(currentDirection))
+                {
+                    directionChangeGateAllowedDirections = VERTICAL_DIRECTIONS;
+                }
             }
         }
 
-        void MovePacman()
+        private void OnTriggerExit(Collider other)
         {
-            if (horizontalInput != 0)
+            Debug.Log("OnTriggerExit: " + other.tag);
+            if (other.CompareTag(Constants.DIRECTION_CHANGE_ENTRY_TAG))
             {
-                rb.AddForce(Vector3.right * movementSpeed * horizontalInput, ForceMode.VelocityChange);
+                hasPassedGateEntry = true;
 
                 return;
             }
 
+            if (other.CompareTag(Constants.DIRECTION_CHANGE_EXIT_TAG) && hasPassedGateEntry)
+            {
+                hasPassedGateEntry = false;
+                directionChangeGateAllowedDirections = other.gameObject
+                    .GetComponent<DirectionChangeGate>()
+                    .allowedDirections;
+                if (directionChangeGateAllowedDirections.Contains(pendingDirection))
+                {
+                    currentDirection = pendingDirection;
+                    rb.velocity = Vector3.zero;
+                }
+
+                pendingDirection = Direction.NONE;
+            }
+        }
+
+        private Direction GetDirectionFromInputs(float horizontalInput, float verticalInput)
+        {
+            if (horizontalInput != 0)
+            {
+                return (Mathf.Sign(horizontalInput) > 0) ? Direction.RIGHT : Direction.LEFT;
+            }
+
             if (verticalInput != 0)
             {
-                rb.AddForce(Vector3.forward * movementSpeed * verticalInput, ForceMode.VelocityChange);
+                return (Mathf.Sign(verticalInput) > 0) ? Direction.FORWARD : Direction.BACKWARD;
             }
+
+            return Direction.NONE;
+        }
+
+        private void UpdateDirection(Direction directionFromInput)
+        {
+            pendingDirection = Direction.NONE;
+
+            if (directionFromInput == Direction.NONE || currentDirection == directionFromInput) return;
+
+            Debug.Log("Update direction => directionFromInput: " + directionFromInput + 
+                ", allowed directions: " + string.Join(", ", directionChangeGateAllowedDirections) + 
+                ", currentDirection: " + currentDirection);
+            if ((HORIZONTAL_DIRECTIONS.Contains(directionFromInput) && HORIZONTAL_DIRECTIONS.Contains(currentDirection)) ||
+                (VERTICAL_DIRECTIONS.Contains(directionFromInput) && VERTICAL_DIRECTIONS.Contains(currentDirection)) ||
+                directionChangeGateAllowedDirections.Contains(directionFromInput))
+            {
+                Debug.Log("Updating direction to: " + directionFromInput);
+                currentDirection = directionFromInput;
+                rb.velocity = Vector3.zero;
+
+                return;
+            }
+
+            pendingDirection = directionFromInput;
+        }
+
+        private void RotateFromInput()
+        {
+           /* transform.rotation = Quaternion.AngleAxis(
+                    (horizontalInput > 0f) ? -HORIZONTAL_ROTATION : HORIZONTAL_ROTATION,
+                    Vector3.up); */
+        }
+
+        private void MovePacman()
+        {
+            // Debug.Log("Move pacman: " + currentDirection);
+            Vector3 forceVector = Vector3.zero;
+            switch(currentDirection)
+            {
+                case Direction.LEFT:
+                    {
+                        forceVector = Vector3.left;
+
+                        break;
+                    }
+                case Direction.RIGHT:
+                    {
+                        forceVector = Vector3.right;
+
+                        break;
+                    }
+                case Direction.FORWARD:
+                    {
+                        forceVector = Vector3.forward;
+
+                        break;
+                    }
+                case Direction.BACKWARD:
+                    {
+                        forceVector = Vector3.back;
+
+                        break;
+                    }
+            }
+
+            if (forceVector == Vector3.zero) return;
+
+            rb.AddForce(forceVector * movementSpeed, ForceMode.VelocityChange);
         }
     }
 }
