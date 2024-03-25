@@ -80,6 +80,7 @@ namespace Pacman
                 {
                     currentDirection = pendingDirection;
                     rb.velocity = Vector3.zero;
+                    RotatePacman();
                 }
 
                 pendingDirection = Direction.NONE;
@@ -117,6 +118,7 @@ namespace Pacman
                 Debug.Log("Updating direction to: " + directionFromInput);
                 currentDirection = directionFromInput;
                 rb.velocity = Vector3.zero;
+                RotatePacman();
 
                 return;
             }
@@ -124,16 +126,42 @@ namespace Pacman
             pendingDirection = directionFromInput;
         }
 
-        private void RotateFromInput()
+        private void RotatePacman()
         {
-           /* transform.rotation = Quaternion.AngleAxis(
-                    (horizontalInput > 0f) ? -HORIZONTAL_ROTATION : HORIZONTAL_ROTATION,
-                    Vector3.up); */
+            Quaternion pacmanDirection = transform.rotation;
+            switch (currentDirection)
+            {
+                case Direction.LEFT:
+                    {
+                        pacmanDirection = Quaternion.AngleAxis(HORIZONTAL_ROTATION, Vector3.up);
+
+                        break;
+                    }
+                case Direction.RIGHT:
+                    {
+                        pacmanDirection = Quaternion.AngleAxis(-HORIZONTAL_ROTATION, Vector3.up);
+
+                        break;
+                    }
+                case Direction.FORWARD:
+                    {
+                        pacmanDirection = Quaternion.AngleAxis(VERTICAL_ROTATION, Vector3.up);
+
+                        break;
+                    }
+                case Direction.BACKWARD:
+                    {
+                        pacmanDirection = Quaternion.AngleAxis(0f, Vector3.up);
+
+                        break;
+                    }
+            }
+            transform.rotation = pacmanDirection;
         }
 
         private void MovePacman()
         {
-            // Debug.Log("Move pacman: " + currentDirection);
+            Debug.Log("Move pacman: " + currentDirection);
             Vector3 forceVector = Vector3.zero;
             switch(currentDirection)
             {
