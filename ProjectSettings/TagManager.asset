@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - DirectionChangeEntry
   - DirectionChangeExit
+  - Food
+  - ScoreManager
   layers:
   - Default
   - TransparentFX
