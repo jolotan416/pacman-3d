@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Utils
 {
     public class Constants
@@ -11,6 +7,8 @@ namespace Utils
 
         public static readonly string DIRECTION_CHANGE_ENTRY_TAG = "DirectionChangeEntry";
         public static readonly string DIRECTION_CHANGE_EXIT_TAG = "DirectionChangeExit";
+
+        public static readonly string PLAYER_TAG = "Player";
     }
 
 }

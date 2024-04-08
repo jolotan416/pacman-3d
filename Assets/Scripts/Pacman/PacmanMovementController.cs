@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Utils;
 
@@ -17,6 +14,7 @@ namespace Pacman
         [SerializeField]
         private float movementSpeed = 5f;
 
+        private LogUtils logUtils = new LogUtils("PacmanMovementController");
         private Rigidbody rb;
 
         private Direction currentDirection = Direction.NONE;
@@ -46,7 +44,7 @@ namespace Pacman
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("OnTriggerExit: " + other.tag);
+            logUtils.LogDebug("OnTriggerEnter: " + other.tag);
             if (other.CompareTag(Constants.DIRECTION_CHANGE_ENTRY_TAG))
             {
                 hasPassedGateEntry = false;
@@ -62,7 +60,7 @@ namespace Pacman
 
         private void OnTriggerExit(Collider other)
         {
-            Debug.Log("OnTriggerExit: " + other.tag);
+            logUtils.LogDebug("OnTriggerExit: " + other.tag);
             if (other.CompareTag(Constants.DIRECTION_CHANGE_ENTRY_TAG))
             {
                 hasPassedGateEntry = true;
@@ -108,14 +106,14 @@ namespace Pacman
 
             if (directionFromInput == Direction.NONE || currentDirection == directionFromInput) return;
 
-            Debug.Log("Update direction => directionFromInput: " + directionFromInput + 
-                ", allowed directions: " + string.Join(", ", directionChangeGateAllowedDirections) + 
+            logUtils.LogDebug("Update direction => directionFromInput: " + directionFromInput +
+                ", allowed directions: " + string.Join(", ", directionChangeGateAllowedDirections) +
                 ", currentDirection: " + currentDirection);
             if ((HORIZONTAL_DIRECTIONS.Contains(directionFromInput) && HORIZONTAL_DIRECTIONS.Contains(currentDirection)) ||
                 (VERTICAL_DIRECTIONS.Contains(directionFromInput) && VERTICAL_DIRECTIONS.Contains(currentDirection)) ||
                 directionChangeGateAllowedDirections.Contains(directionFromInput))
             {
-                Debug.Log("Updating direction to: " + directionFromInput);
+                logUtils.LogDebug("Updating direction to: " + directionFromInput);
                 currentDirection = directionFromInput;
                 rb.velocity = Vector3.zero;
                 RotatePacman();
@@ -161,7 +159,7 @@ namespace Pacman
 
         private void MovePacman()
         {
-            Debug.Log("Move pacman: " + currentDirection);
+            logUtils.LogDebug("Move pacman: " + currentDirection);
             Vector3 forceVector = Vector3.zero;
             switch(currentDirection)
             {
