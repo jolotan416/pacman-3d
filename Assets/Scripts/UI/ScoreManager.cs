@@ -1,13 +1,16 @@
 using TMPro;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+namespace UI
 {
-    [SerializeField]
-    private TextMeshProUGUI scoreText;
-
-    public void UpdateScore(int score)
+    public class ScoreManager : MonoBehaviour
     {
-        scoreText.text = "Score: " + score;
+        [SerializeField]
+        private TextMeshProUGUI scoreText;
+
+        public void UpdateScore(int score)
+        {
+            scoreText.text = "Score: " + score;
+        }
     }
 }

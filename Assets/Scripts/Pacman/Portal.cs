@@ -1,19 +1,22 @@
 using Utils;
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+namespace Pacman
 {
-    [SerializeField]
-    private GameObject teleportObject;
-
-    [SerializeField]
-    private Vector3 teleportOffsetPosition;
-
-    private void OnTriggerEnter(Collider other)
+    public class Portal : MonoBehaviour
     {
-        if (other.gameObject.CompareTag(Constants.PLAYER_TAG))
+        [SerializeField]
+        private GameObject teleportObject;
+
+        [SerializeField]
+        private Vector3 teleportOffsetPosition;
+
+        private void OnTriggerEnter(Collider other)
         {
-            other.gameObject.transform.position = teleportObject.transform.position + teleportOffsetPosition;
+            if (other.gameObject.CompareTag(Constants.PLAYER_TAG))
+            {
+                other.gameObject.transform.position = teleportObject.transform.position + teleportOffsetPosition;
+            }
         }
     }
 }

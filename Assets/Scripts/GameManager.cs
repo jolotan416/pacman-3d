@@ -1,6 +1,7 @@
 using Food;
 using UnityEngine;
 using Utils;
+using UI;
 
 public class GameManager : MonoBehaviour, FoodObserver
 {

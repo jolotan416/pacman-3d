@@ -2,25 +2,29 @@ using Food;
 using UnityEngine;
 using Utils;
 
-public class PacmanFoodCollider : MonoBehaviour
+namespace Pacman
 {
-    private LogUtils logUtils = new LogUtils("PacmanFoodCollider");
-
-    private FoodObserver foodObserver;
-
-    private void Start()
+    public class PacmanFoodCollider : MonoBehaviour
     {
-        foodObserver = GameObject.FindGameObjectWithTag(Constants.GAME_CONTROLLER_TAG)
-            .GetComponent<GameManager>();
-    }
+        private LogUtils logUtils = new LogUtils("PacmanFoodCollider");
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag(Constants.FOOD_TAG))
+        private FoodObserver foodObserver;
+
+        private void Start()
         {
-            logUtils.LogDebug("Colliding with food with name: " + collision.gameObject.name);
-            FoodBehaviour foodBehaviour = collision.gameObject.GetComponent<FoodBehaviour>();
-            foodObserver.NotifyFoodEaten(foodBehaviour.Eat());
+            foodObserver = GameObject.FindGameObjectWithTag(Constants.GAME_CONTROLLER_TAG)
+                .GetComponent<GameManager>();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag(Constants.FOOD_TAG))
+            {
+                logUtils.LogDebug("Colliding with food with name: " + other.gameObject.name);
+                FoodBehaviour foodBehaviour = other.gameObject.GetComponent<FoodBehaviour>();
+                foodObserver.NotifyFoodEaten(foodBehaviour.Eat());
+            }
         }
     }
+
 }
