@@ -1,17 +1,24 @@
-using Food;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Food
 {
-    public class BaseFoodBehaviour : MonoBehaviour, FoodBehaviour
+    public class BaseFoodBehaviour : FoodBehaviour
     {
         private static readonly int SCORE = 1;
+        private ScoreFoodAction scoreFoodAction;
 
-        public int Eat()
+        public new void Awake()
+        {
+            base.Awake();
+            scoreFoodAction = foodActionFactory.GetScoreFoodAction(SCORE);
+        }
+
+        public override List<FoodAction> Eat()
         {
             Destroy(gameObject);
 
-            return SCORE;
+            return new List<FoodAction> { scoreFoodAction };
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Food;
 using UnityEngine;
 using Utils;
@@ -22,7 +23,10 @@ namespace Pacman
             {
                 logUtils.LogDebug("Colliding with food with name: " + other.gameObject.name);
                 FoodBehaviour foodBehaviour = other.gameObject.GetComponent<FoodBehaviour>();
-                foodObserver.NotifyFoodEaten(foodBehaviour.Eat());
+
+                List<FoodAction> foodActions = foodBehaviour.Eat();
+                logUtils.LogDebug("Food actions from food: " + foodActions);
+                foodObserver.NotifyFoodEaten(foodActions);
             }
         }
     }

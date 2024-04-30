@@ -1,7 +1,9 @@
+﻿using System.Collections.Generic;
+
 namespace Food
 {
     public interface FoodObserver
     {
-        public abstract void NotifyFoodEaten(int foodValue);
+        public void NotifyFoodEaten(List<FoodAction> foodActions);
     }
 }
