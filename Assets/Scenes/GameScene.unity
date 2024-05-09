@@ -5616,6 +5616,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost Spawn Direction Change Trigger Top
       objectReference: {fileID: 0}
+    - target: {fileID: 5897020076560047348, guid: daf95da25b6cb8a4ba787c3d8c891cb9, type: 3}
+      propertyPath: allowedDirections.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897020076560047348, guid: daf95da25b6cb8a4ba787c3d8c891cb9, type: 3}
+      propertyPath: allowedDirections.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897020076560047348, guid: daf95da25b6cb8a4ba787c3d8c891cb9, type: 3}
+      propertyPath: allowedDirections.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7450,8 +7462,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1428501406}
   - {fileID: 639194177}
+  - {fileID: 1428501406}
   - {fileID: 1193142007}
   - {fileID: 1266388531}
   - {fileID: 2041015503}
@@ -12904,6 +12916,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost Spawn Direction Change Trigger
       objectReference: {fileID: 0}
+    - target: {fileID: 2373047650834569747, guid: daf95da25b6cb8a4ba787c3d8c891cb9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897020076560047348, guid: daf95da25b6cb8a4ba787c3d8c891cb9, type: 3}
+      propertyPath: allowedDirections.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897020076560047348, guid: daf95da25b6cb8a4ba787c3d8c891cb9, type: 3}
+      propertyPath: allowedDirections.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897020076560047348, guid: daf95da25b6cb8a4ba787c3d8c891cb9, type: 3}
+      propertyPath: allowedDirections.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15223,6 +15251,18 @@ PrefabInstance:
     - target: {fileID: 5389514967110148050, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
       propertyPath: m_Name
       value: Ghost
+      objectReference: {fileID: 0}
+    - target: {fileID: 5389514967110148050, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870050065371913062, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+      propertyPath: movementSpeed
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723865423552175781, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19228,7 +19268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7280809568333646390, guid: b51dde3b2346b0445b348ed05df2edbf, type: 3}
       propertyPath: movementSpeed
-      value: 1.75
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8513102722316964438, guid: b51dde3b2346b0445b348ed05df2edbf, type: 3}
       propertyPath: m_Name

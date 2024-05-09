@@ -70,13 +70,46 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45c98f081eae5de4a865ef2eb48f4ca2, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 8012580211462379303}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45c98f081eae5de4a865ef2eb48f4ca2, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8723865423552175781}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45c98f081eae5de4a865ef2eb48f4ca2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5870050065371913062}
   m_SourcePrefab: {fileID: 100100000, guid: 45c98f081eae5de4a865ef2eb48f4ca2, type: 3}
 --- !u!1 &5389514967110148050 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 45c98f081eae5de4a865ef2eb48f4ca2, type: 3}
   m_PrefabInstance: {fileID: 5046862409060147843}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &8012580211462379303
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5389514967110148050}
+  serializedVersion: 4
+  m_Mass: 10
+  m_Drag: 1.5
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 2
 --- !u!65 &8723865423552175781
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -92,9 +125,22 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2.9877074, y: 4.963766, z: 2.9782062}
   m_Center: {x: 0.08244755, y: -1.4373671, z: -0.094585404}
+--- !u!114 &5870050065371913062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5389514967110148050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f5c20655ab5d1c40abe2a76e0400b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5

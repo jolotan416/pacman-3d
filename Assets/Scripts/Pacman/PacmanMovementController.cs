@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Movement;
 using UnityEngine;
 using Utils;
@@ -6,7 +7,16 @@ namespace Pacman
 {
     public class PacmanMovementController : MovementController
     {
-        public PacmanMovementController(): base("PacmanMovementController")
+        public PacmanMovementController(): 
+            base(
+                "PacmanMovementController", 
+                Direction.NONE,
+                new List<Direction> { Direction.LEFT, Direction.RIGHT })
+        {
+
+        }
+
+        override protected void OnAllowedDirectionsChange(List<Direction> allowedDirections)
         {
 
         }
