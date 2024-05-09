@@ -1,7 +1,7 @@
 using Utils;
 using UnityEngine;
 
-namespace Pacman
+namespace Movement
 {
     public class Portal : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace Pacman
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag(Constants.PLAYER_TAG))
+            if (other.gameObject.CompareTag(Constants.PLAYER_TAG) || other.gameObject.CompareTag(Constants.GHOST_TAG))
             {
                 other.gameObject.transform.position = teleportObject.transform.position + teleportOffsetPosition;
             }

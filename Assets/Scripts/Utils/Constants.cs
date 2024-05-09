@@ -13,6 +13,7 @@ namespace Utils
 
         public static readonly string PLAYER_TAG = "Player";
         public static readonly string FOOD_TAG = "Food";
+        public static readonly string GHOST_TAG = "Ghost";
 
         public static readonly string GAME_CONTROLLER_TAG = "GameController";
         public static readonly string SCORE_MANAGER_TAG = "ScoreManager";
