@@ -7,7 +7,11 @@ namespace Ghost
 {
     public class GhostMovementController : MovementController
     {
-        private Transform pacmanPosition;
+        [SerializeField]
+        private GhostType ghostType = GhostType.FOLLOWER;
+
+        private GhostMovementStrategy ghostMovementStrategy;
+        private Transform pacmanTransform;
         private LogUtils logUtils = new LogUtils("GhostMovementController");
 
         public GhostMovementController(): 
@@ -16,14 +20,15 @@ namespace Ghost
                 Direction.FORWARD,
                 new List<Direction> { Direction.FORWARD })
         {
-
+            
         }
 
         private new void Start()
         {
             base.Start();
 
-            pacmanPosition = GameObject.FindGameObjectWithTag(Constants.PLAYER_TAG).transform;
+            InitializeGhostMovementStrategy();
+            pacmanTransform = GameObject.FindGameObjectWithTag(Constants.PLAYER_TAG).transform;
         }
 
         override protected void OnAllowedDirectionsChange(List<Direction> allowedDirections)
@@ -32,16 +37,31 @@ namespace Ghost
             CalculateNewDirection(allowedDirections);
         }
 
+        private void InitializeGhostMovementStrategy()
+        {
+            switch (ghostType)
+            {
+                case GhostType.FOLLOWER:
+                    {
+                        ghostMovementStrategy = new FollowerGhostMovementStrategy();
+
+                        break;
+                    }
+
+                case GhostType.RANDOM:
+                    {
+                        ghostMovementStrategy = new RandomGhostMovementStrategy();
+
+                        break;
+                    }
+            }
+            logUtils.LogDebug("Initialized with ghost movement strategy: " + ghostMovementStrategy);
+        }
+
         private void CalculateNewDirection(List<Direction> allowedDirections)
         {
-            float horizontalDistanceFromPacman = transform.position.x - pacmanPosition.position.x;
-            Direction horizontalDirection = horizontalDistanceFromPacman > 0 ? Direction.LEFT : Direction.RIGHT;
-
-            float verticalDistanceFromPacman = transform.position.z - pacmanPosition.position.z;
-            Direction verticalDirection = verticalDistanceFromPacman > 0 ? Direction.BACKWARD : Direction.FORWARD;
-
-            Direction updatedDirection = (allowedDirections.Contains(horizontalDirection)) ? horizontalDirection : 
-                (allowedDirections.Contains(verticalDirection) ? verticalDirection : allowedDirections[0]);
+            Direction updatedDirection = ghostMovementStrategy.CalculateNewDirection(
+                allowedDirections, transform.position, pacmanTransform.position);
             logUtils.LogDebug("Updated direction: " + updatedDirection);
             UpdateDirection(updatedDirection);
         }

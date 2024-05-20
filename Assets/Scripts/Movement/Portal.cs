@@ -15,7 +15,11 @@ namespace Movement
         {
             if (other.gameObject.CompareTag(Constants.PLAYER_TAG) || other.gameObject.CompareTag(Constants.GHOST_TAG))
             {
-                other.gameObject.transform.position = teleportObject.transform.position + teleportOffsetPosition;
+                Vector3 gameObjectPosition = other.gameObject.transform.position;
+                Vector3 newPosition = teleportObject.transform.position + teleportOffsetPosition;
+                newPosition.y = gameObjectPosition.y;
+
+                other.gameObject.transform.position = newPosition;
             }
         }
     }
