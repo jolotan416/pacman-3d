@@ -17,6 +17,9 @@ namespace Utils
 
         public static readonly string GAME_CONTROLLER_TAG = "GameController";
         public static readonly string SCORE_MANAGER_TAG = "ScoreManager";
+
+        public static readonly int TITLE_SCREEN_SCENE_INDEX = 0;
+        public static readonly int GAME_SCENE_INDEX = 1;
     }
 
 }
