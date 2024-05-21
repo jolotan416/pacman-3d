@@ -8,6 +8,8 @@ namespace Ghost
 {
     public class GhostStateManager : MonoBehaviour
     {
+        private static readonly int POWER_UP_DURATION = 5;
+
         [SerializeField]
         private Material ghostMaterial;
 
@@ -29,9 +31,23 @@ namespace Ghost
         public void PowerUp()
         {
             logUtils.LogDebug("Powering up...");
+            StopAllCoroutines();
+            StartCoroutine(StartPowerUpWithCountdown());
+        }
 
-            ghostState = GhostState.NERFED ;
-            ghostClothRender.material = nerfedMaterial;
+        private IEnumerator StartPowerUpWithCountdown()
+        {
+            ToggleState(GhostState.NERFED, nerfedMaterial);
+
+            yield return new WaitForSeconds(POWER_UP_DURATION);
+
+            ToggleState(GhostState.BASE, ghostMaterial);
+        }
+
+        private void ToggleState(GhostState ghostState, Material ghostClothMaterial)
+        {
+            this.ghostState = ghostState;
+            ghostClothRender.material = ghostClothMaterial;
             ghostFoodBehaviour.UpdateState(ghostState);
         }
     }
