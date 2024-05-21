@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 using UI;
 using System.Collections.Generic;
@@ -13,11 +14,28 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
     private GameObject gameOverScreen;
 
     private ScoreManager scoreManager;
+    private bool isGameOver = false;
 
     public void Start()
     {
         scoreManager = GameObject.FindGameObjectWithTag(Constants.SCORE_MANAGER_TAG)
             .GetComponent<ScoreManager>();
+    }
+
+    private void Update()
+    {
+
+        if (isGameOver && Input.GetKey(KeyCode.R))
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(Constants.GAME_SCENE_INDEX);
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(Constants.TITLE_SCREEN_SCENE_INDEX);
+        }
     }
 
     public ScoreFoodAction GetScoreFoodAction(int score)
@@ -56,6 +74,7 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
         Time.timeScale = 0;
         scoreManager.VerifyHighScore();
         gameOverScreen.SetActive(true);
+        isGameOver = true;
     }
 
     private void PowerUp()
