@@ -5,5 +5,6 @@
         public ScoreFoodAction GetScoreFoodAction(int score);
         public GhostFoodAction GetGhostFoodAction();
         public PowerUpAction GetPowerUpAction();
+        public CheckFoodObjectsAction GetCheckFoodObjectsAction();
     }
 }

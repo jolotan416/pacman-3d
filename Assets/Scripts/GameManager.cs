@@ -45,12 +45,17 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
 
     public GhostFoodAction GetGhostFoodAction()
     {
-        return new GhostFoodAction(GameOver);
+        return new GhostFoodAction(TriggerGameOver);
     }
 
     public PowerUpAction GetPowerUpAction()
     {
         return new PowerUpAction(PowerUp);
+    }
+
+    public CheckFoodObjectsAction GetCheckFoodObjectsAction()
+    {
+        return new CheckFoodObjectsAction(TriggerGameOver);
     }
 
     public void NotifyFoodEaten(List<FoodAction> foodActions)
@@ -69,7 +74,7 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
         scoreManager.AddScore(addedScore);
     }
 
-    private void GameOver()
+    private void TriggerGameOver()
     {
         Time.timeScale = 0;
         scoreManager.VerifyHighScore();
