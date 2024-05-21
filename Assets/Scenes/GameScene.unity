@@ -9751,6 +9751,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7383795194159848619, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+      propertyPath: ghostMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 2ea273e03203cfd4d8703900b0172684, type: 2}
+    - target: {fileID: -7383795194159848619, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+      propertyPath: nerfedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 791596c9724d5ce48a0677a0e63fea65, type: 2}
+    - target: {fileID: -7383795194159848619, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+      propertyPath: ghostClothRender
+      value: 
+      objectReference: {fileID: 1400946904}
     - target: {fileID: 4719974592334005608, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.92
@@ -12759,6 +12771,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 387832233117678939, guid: daf95da25b6cb8a4ba787c3d8c891cb9, type: 3}
   m_PrefabInstance: {fileID: 1399324963}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &1400946904 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7671882295345845917, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+  m_PrefabInstance: {fileID: 1093183318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1402015919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15347,6 +15364,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7383795194159848619, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+      propertyPath: ghostMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 09c4c5ab6057d2c4ba6354c57cdddfab, type: 2}
+    - target: {fileID: -7383795194159848619, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+      propertyPath: nerfedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 791596c9724d5ce48a0677a0e63fea65, type: 2}
+    - target: {fileID: -7383795194159848619, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+      propertyPath: ghostClothRender
+      value: 
+      objectReference: {fileID: 2060508982}
     - target: {fileID: 3627661745827702168, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -18421,6 +18450,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceae34a9cd362e9468f7c4a2cfd2e9c8, type: 3}
+--- !u!23 &2060508982 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7671882295345845917, guid: 34d318d62bd6368458d53e86cce0458d, type: 3}
+  m_PrefabInstance: {fileID: 1657525789}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2065998065
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,11 +19,11 @@ namespace Pacman
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag(Constants.FOOD_TAG))
+            logUtils.LogDebug("Colliding with food with name: " + other.gameObject.name);
+            FoodBehaviour foodBehaviour = other.gameObject.GetComponent<FoodBehaviour>();
+                
+            if (foodBehaviour != null)
             {
-                logUtils.LogDebug("Colliding with food with name: " + other.gameObject.name);
-                FoodBehaviour foodBehaviour = other.gameObject.GetComponent<FoodBehaviour>();
-
                 List<FoodAction> foodActions = foodBehaviour.Eat();
                 logUtils.LogDebug("Food actions from food: " + foodActions);
                 foodObserver.NotifyFoodEaten(foodActions);

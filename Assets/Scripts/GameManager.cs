@@ -1,8 +1,9 @@
-using Food;
 using UnityEngine;
 using Utils;
 using UI;
 using System.Collections.Generic;
+using Food;
+using Ghost;
 
 public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
 {
@@ -10,8 +11,6 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
 
     private ScoreManager scoreManager;
     private int score = 0;
-
-    private ScoreFoodAction scoreFoodAction;
 
     public void Start()
     {
@@ -23,6 +22,16 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
     public ScoreFoodAction GetScoreFoodAction(int score)
     {
         return new ScoreFoodAction(score, AddScore);
+    }
+
+    public GhostFoodAction GetGhostFoodAction()
+    {
+        return new GhostFoodAction();
+    }
+
+    public PowerUpAction GetPowerUpAction()
+    {
+        return new PowerUpAction(PowerUp);
     }
 
     public void NotifyFoodEaten(List<FoodAction> foodActions)
@@ -40,5 +49,14 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
         logUtils.LogDebug("Added score: " + addedScore);
         score += addedScore;
         scoreManager.UpdateScore(score);
+    }
+
+    private void PowerUp()
+    {
+        GameObject[] ghosts = GameObject.FindGameObjectsWithTag(Constants.GHOST_TAG);
+        foreach (GameObject ghost in ghosts)
+        {
+            ghost.GetComponent<GhostStateManager>().PowerUp();
+        }
     }
 }

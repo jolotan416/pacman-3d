@@ -16,12 +16,6 @@ namespace Food
             this.handleScoreCallback = handleScoreCallback;
         }
 
-
-        public ScoreFoodAction Clone(int score)
-        {
-            return new ScoreFoodAction(score, handleScoreCallback);
-        }
-
         public void PerformAction()
         {
             logUtils.LogDebug("Performing action for ScoreFoodAction");
