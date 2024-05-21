@@ -9,14 +9,15 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
 {
     private LogUtils logUtils = new LogUtils("GameManager");
 
+    [SerializeField]
+    private GameObject gameOverScreen;
+
     private ScoreManager scoreManager;
-    private int score = 0;
 
     public void Start()
     {
         scoreManager = GameObject.FindGameObjectWithTag(Constants.SCORE_MANAGER_TAG)
             .GetComponent<ScoreManager>();
-        scoreManager.UpdateScore(score);
     }
 
     public ScoreFoodAction GetScoreFoodAction(int score)
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
 
     public GhostFoodAction GetGhostFoodAction()
     {
-        return new GhostFoodAction();
+        return new GhostFoodAction(GameOver);
     }
 
     public PowerUpAction GetPowerUpAction()
@@ -47,8 +48,14 @@ public class GameManager : MonoBehaviour, FoodActionFactory, FoodObserver
     private void AddScore(int addedScore)
     {
         logUtils.LogDebug("Added score: " + addedScore);
-        score += addedScore;
-        scoreManager.UpdateScore(score);
+        scoreManager.AddScore(addedScore);
+    }
+
+    private void GameOver()
+    {
+        Time.timeScale = 0;
+        scoreManager.VerifyHighScore();
+        gameOverScreen.SetActive(true);
     }
 
     private void PowerUp()
